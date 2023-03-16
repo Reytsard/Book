@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    
+}
+.library{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: .3fr 1fr .5fr;
+}
+.library-name{
+    grid-row: 1 / span 1;
+    display: grid;
+    place-items: center;
+}
+
+.bookshelf {
+    grid-row: 2 / span 1;
+    margin: 0px 5px;
+    border: 1px solid burlywood;
+    overflow: auto;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+.book{
+    width: clamp(300px, 200px, 100px);
+    height: clamp(200px, 150px, 80px);
+    background-color: white;
+    color: black;
+    display: grid;
+    place-items: center;
+    margin: 10px;
+    border-radius: 20px;;
+}
