@@ -36,3 +36,19 @@ body{
     margin: 10px;
     border-radius: 20px;;
 }
+.addBook{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+}
+#addBook{
+    grid-column: 1 / span 1;
+    width: clamp(200px, 100px , 50px);
+    height: clamp(80px, 50px, 30px);
+    border-radius: 45px;
+}
+.addBookForm{
+    grid-column: 2 / span 1;
+    width: clamp(300px, 200px, 1fr);
+}
