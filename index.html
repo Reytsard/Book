@@ -22,6 +22,27 @@
         <div class="addBook">
             <button type="button" id="addBook">New Book</button>
             <div class="addBookForm">
+                <fieldset>
+                    <div class="titleForBook">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" placeholder="Title">
+                    </div>
+                    <div class="authorForBook">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author" placeholder="Author">
+                    </div>
+                    <div class="pagesForBook">
+                        <label for="pages">Pages:</label>
+                        <input type="number" name="pages" id="pages" placeholder="pages">
+                    </div>
+                    <div class="isReadForBook">
+                        <label for="isRead">Read?</label>
+                        <select name="isRead" id="isRead">
+                            <option value="true" selected>yes</option>
+                            <option value="false">no</option>
+                        </select>
+                    <button type="submit" id="submitBookForm">Add Book</button>
+                </fieldset>
             </div>
         </div>
     </div> 
