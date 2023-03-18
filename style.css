@@ -1,36 +1,42 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: black;
-    color: white;
+    background-color: white;
     
+}
+.header{
+    grid-row: 1 / span 1;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 4fr 1fr ;
 }
 .library{
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-rows: .3fr 1fr .5fr;
+    grid-template-rows: .1fr 1fr;
+    
 }
 .library-name{
-    grid-row: 1 / span 1;
-    display: grid;
-    place-items: center;
+    grid-column: 1 / span 1;
+    font-family: 'Press Start 2P';
+    font-size: 2rem;
 }
 
 .bookshelf {
     grid-row: 2 / span 1;
-    margin: 0px 5px;
-    border: 1px solid burlywood;
-    overflow: auto;
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
+    overflow: auto;
+    background-color: burlywood;
 }
 .book{
     width: clamp(300px, 200px, 100px);
     height: clamp(200px, 150px, 80px);
     background-color: white;
     color: black;
+    border: 1px solid black;
     display: grid;
     place-items: center;
     margin: 10px;
@@ -38,17 +44,25 @@ body{
 }
 .addBook{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     place-items: center;
 }
 #addBook{
     grid-column: 1 / span 1;
     width: clamp(200px, 100px , 50px);
-    height: clamp(80px, 50px, 30px);
+    height: clamp(50px, 30px, 10px);
     border-radius: 45px;
+    font-family: 'Press Start 2P','Courier New', Courier, monospace;
 }
 .addBookForm{
     grid-column: 2 / span 1;
     width: clamp(300px, 200px, 1fr);
+}
+.library .add-Book-Form fieldset{
+    border: 0;
+    padding: 30px;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Press Start 2p', 'Courier New', Courier, monospace;
 }
