@@ -7,10 +7,13 @@ function Book(title, author, pages, isRead){
     this.isRead = isRead;
 }
 Book.prototype.info = function(){
-    if(this.isRead == true){
-        return `${this.title} by ${this.author}, has ${this.pages}, has been read`;
+    if(this.isRead == "true"){
+        return `<div class="title">Title: ${this.title}</div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead">Has been read</div>\n`;
     }
-    return `${this.title} by ${this.author}, has ${this.pages}, has not been read`;
+    return `<div id="title">Title: ${this.title}</div>\n<div id="author">Author: ${this.author}</div>\n<div id="pages">Pages: ${this.pages} pages</div>\n<div id="isRead">Has not been read</div>\n`;
+}
+function addToLibrary(book){
+    library.push(book);
 }
 let bookShelf = document.querySelector('.bookshelf');
 
@@ -23,23 +26,24 @@ let bookShelf = document.querySelector('.bookshelf');
 
 
 document.querySelector('#submitBookForm').addEventListener('click',() => {
-    // const newBook = new Book(document.querySelector('#title').value.toString(),
-    // document.querySelector('#author').value.toString(),
-    // Number.parseInt(document.querySelector('#pages').value),
-    // document.querySelector('#isRead').value);
-    // console.log(newBook);
-    let bookDiv = document.createElement('div');
-    let titleDiv = document.createAttribute('div');
-    let authorDiv = document.createAttribute('div');
-    let pagesDiv = document.createAttribute('div');
-    let isReadDiv = document.createAttribute('div');
+    //gets the values from the input box;
+    let title = document.querySelector('#title').value.toString();
+    let author = document.querySelector('#author').value.toString();
+    let pages = Number.parseInt(document.querySelector('#pages').value);
+    let isRead = document.querySelector('#isRead').value;
+    //creates a new Object
+    let newBook = new Book(title,author,pages,isRead);
+    addToLibrary(newBook);
+    
 
-    bookDiv.classList.toggle('book');
-    bookDiv.appendChild(titleDiv);
-    bookDiv.appendChild(authorDiv);
-    bookDiv.appendChild(pagesDiv);
-    bookDiv.appendChild(isReadDiv);
+    console.log(library);
+
+    //adds a card for the book
+    let bookDiv = document.createElement('div');
     bookShelf.appendChild(bookDiv);
+    bookDiv.classList.toggle('book');
+    bookDiv.innerHTML = newBook.info();
+
 
 })
 
