@@ -9,16 +9,17 @@ function Book(title, author, pages, isRead, indexNum){
 }
 Book.prototype.info = function(){
     if(this.isRead == "true"){
-        return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has been Read</button></div>\n<button class="deleteButton" type="button" data-value="${this.indexNum}">Delete</button>\n`;
+        return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has been Read</button></div>\n<button class="deleteButton" type="button" >Delete</button>\n`;
     }
     return `<div id="title">Title: ${this.title} </div>\n<div id="author">Author: ${this.author}</div>\n<div id="pages">Pages: ${this.pages} pages</div>\n<div id="isRead"><button class="readButton" type="button" value="0">Has not been Read</button></div>\n`;
 }
 function addToLibrary(book){
     console.log(book.indexNum);
+    
     library.push(book);
 }
 function removeCard(){
-    console.log(document.querySelector(`[data-value="${this.indexNum}"]`));
+    console.log()
 }
 function createAddBookForm(){
     let addFormDiv = document.querySelector('.add-Book-Form');
@@ -32,14 +33,16 @@ function createAddBookForm(){
     
         //creates a new Object
         let newBook = new Book(title,author,pages,isRead,bookNumber);
-        bookNumber++;
         addToLibrary(newBook);
         
     
         //adds a card for the book
         let bookDiv = document.createElement('div');
+        bookDiv.setAttribute('data-value',`${bookNumber}`);
+        bookNumber++;
         bookShelf.appendChild(bookDiv);
         bookDiv.classList.toggle('book');
+        //!!add datavalue to the card so we can get it and delete the whole card
         bookDiv.innerHTML = newBook.info();
         let readButton = bookDiv.querySelector(".readButton");
         readButton.addEventListener('click',() => {
@@ -66,3 +69,4 @@ const addBookForm = '<fieldset>\n<div class="titleForBook">\n<label for="title">
 let bookNumber = 0;
 document.querySelector('#addBook').addEventListener('click', createAddBookForm);
 
+// can set the id of book to nmumber so when del is pressed we just have to do document.querySelector('#bookDivID') to the value of the delButton; 
