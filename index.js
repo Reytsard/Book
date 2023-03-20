@@ -9,21 +9,34 @@ function Book(title, author, pages, isRead, indexNum){
 }
 Book.prototype.info = function(){
     if(this.isRead == "true"){
-        return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has been Read</button></div>\n<button class="deleteButton" type="button" >Delete</button>\n`;
+        return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has been Read</button></div>\n<button class="deleteButton" type="button" value='${this.indexNum}'>Delete</button>\n`;
     }
-    return `<div id="title">Title: ${this.title} </div>\n<div id="author">Author: ${this.author}</div>\n<div id="pages">Pages: ${this.pages} pages</div>\n<div id="isRead"><button class="readButton" type="button" value="0">Has not been Read</button></div>\n`;
+    return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has Not been Read</button></div>\n<button class="deleteButton" type="button" value='${this.indexNum}'>Delete</button>\n`;
 }
 function addToLibrary(book){
-    console.log(book.indexNum);
-    
     library.push(book);
 }
-function removeCard(){
-    console.log()
+function removeFromLibrary(book){
+    let indexOfBook = library.indexOf(book);
+    if(indexOfBook == 0){
+        library.shift();
+    }else if(indexOfBook == library.length - 1){
+        library.pop();
+    }else{
+        //remove the index and get left side and right side
+        let leftSide = library.slice(0,indexOfBook);
+        let rightSide = library.slice(indexOfBook + 1, library.length);
+        library = [];
+        leftSide.forEach(digit => library.push(digit));
+        rightSide.forEach(digit => library.push(digit));
+    }
+    
 }
 function createAddBookForm(){
+    //bookform is added to DOM
     let addFormDiv = document.querySelector('.add-Book-Form');
     addFormDiv.innerHTML = addBookForm;
+
     document.querySelector('#submitBookForm').addEventListener('click',() => {
         //gets the values from the input box;
         let title = document.querySelector('#title').value.toString();
@@ -38,7 +51,7 @@ function createAddBookForm(){
     
         //adds a card for the book
         let bookDiv = document.createElement('div');
-        bookDiv.setAttribute('data-value',`${bookNumber}`);
+        bookDiv.setAttribute('id',`bookNum${bookNumber}`);
         bookNumber++;
         bookShelf.appendChild(bookDiv);
         bookDiv.classList.toggle('book');
@@ -56,10 +69,14 @@ function createAddBookForm(){
         });
         addFormDiv.innerHTML = '';
 
-        let deleteButton = bookDiv.querySelector(".deleteButton");
-        deleteButton.addEventListener('click', removeCard);
+        let delButton = bookDiv.querySelector('.deleteButton');
+        delButton.addEventListener("click", () => {
+            const delButtonValue = Number.parseInt(delButton.value);
+            const bookDivToBeRemoved = libraryDiv.querySelector(`#bookNum${delButtonValue}`);   
+            removeFromLibrary(newBook);
+            bookShelf.removeChild(bookDivToBeRemoved);
+        }); 
     });
-    
 }
 
 //main
