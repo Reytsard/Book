@@ -12,33 +12,18 @@ class Book{
         }
         return `<div class="title">Title: ${this.title} </div>\n<div class="author">Author: ${this.author}</div>\n<div class="pages">Pages: ${this.pages} pages</div>\n<div class="isRead"><button class="readButton" type="button" value="1">Has Not been Read</button></div>\n<button class="deleteButton" type="button" value='${this.indexNum}'>Delete</button>\n`;    
     }
-    addToLibrary(book){
-        library.libraryContent.push(book);
-    }
-    removeFromLibrary(book){
-        let indexOfBook = library.libraryContent.indexOf(book);
-        if(indexOfBook == 0){
-            library.libraryContent.shift();
-        }else if(indexOfBook == library.libraryContent.length - 1){
-            library.libraryContent.pop();
-        }else{
-            //remove the index and get left side and right side
-            let leftSide = library.libraryContent.slice(0,indexOfBook);
-            let rightSide = library.libraryContent.slice(indexOfBook + 1, library.libraryContent.length);
-            library.libraryContent = [];
-            leftSide.forEach(digit => library.libraryContent.push(digit));
-            rightSide.forEach(digit => library.libraryContent.push(digit));
-        }
-    }
+    
 }
 class Library{
     libraryContent = [];
     addBookForm = '<fieldset>\n<div class="titleForBook">\n<label for="title">Title:</label>\n<input type="text" name="title" id="title" placeholder="Title">\n</div>\n<div class="authorForBook">\n<label for="author">Author:</label>\n<input type="text" name="author" id="author" placeholder="Author">\n</div>\n<div class="pagesForBook">\n<label for="pages">Pages:</label>\n<input type="number" name="pages" id="pages" placeholder="pages">\n</div>\n<div class="isReadForBook">\n<label for="isRead">Read?</label>\n<select name="isRead" id="isRead">\n<option value="true" selected>yes</option>\n<option value="false">no</option>\n</select>\n<button type="submit" id="submitBookForm">Add Book</button></fieldset>\n';
-    constructor(){}
+    constructor(){
+    }
     createAddBookForm(){
         //bookform is added to DOM
+        
+
         let addFormDiv = document.querySelector('.add-Book-Form');
-        let bookNumber = 0;
         addFormDiv.innerHTML = library.addBookForm;
     
         document.querySelector('#submitBookForm').addEventListener('click',() => {
@@ -50,7 +35,7 @@ class Library{
         
             //creates a new Object
             let newBook = new Book(title,author,pages,isRead,bookNumber);
-            newBook.addToLibrary(this);
+            library.addToLibrary(newBook);
             
         
             //adds a card for the book
@@ -77,15 +62,35 @@ class Library{
             delButton.addEventListener("click", () => {
                 const delButtonValue = Number.parseInt(delButton.value);
                 const bookDivToBeRemoved = libraryDiv.querySelector(`#bookNum${delButtonValue}`);   
-                newBook.removeFromLibrary(newBook);
+                library.removeFromLibrary(newBook);
                 bookShelf.removeChild(bookDivToBeRemoved);
             }); 
         });
     }
+    addToLibrary(book){
+        library.libraryContent.push(book);
+    }
+    removeFromLibrary(book){
+        let indexOfBook = library.libraryContent.indexOf(book);
+        if(indexOfBook == 0){
+            library.libraryContent.shift();
+        }else if(indexOfBook == library.libraryContent.length - 1){
+            library.libraryContent.pop();
+        }else{
+            //remove the index and get left side and right side
+            let leftSide = library.libraryContent.slice(0,indexOfBook);
+            let rightSide = library.libraryContent.slice(indexOfBook + 1, library.libraryContent.length);
+            library.libraryContent = [];
+            leftSide.forEach(digit => library.libraryContent.push(digit));
+            rightSide.forEach(digit => library.libraryContent.push(digit));
+        }
+    }
+
 }
 
 //main
 const libraryDiv = document.querySelector('.library');
 const bookShelf = document.querySelector('.bookshelf');
+let bookNumber = 0;
 const library = new Library();
 document.querySelector('#addBook').addEventListener('click', library.createAddBookForm);
